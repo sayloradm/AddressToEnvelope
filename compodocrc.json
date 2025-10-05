@@ -1,0 +1,9 @@
+{
+  "tsconfig": "./tsconfig.json",
+  "theme": "vagrant",
+  "name": "Docs",
+  "hideGenerator": "true",
+  "coverageTestThresholdFail": true,
+  "disableInternal": false,
+  "disableDependencies": true
+}
