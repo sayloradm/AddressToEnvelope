@@ -35,6 +35,35 @@ jobs:
         run: .github/scripts/lint-commit.ps1
         shell: pwsh
 
+  BuildHarness:
+    name: 'Build Harness'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Cache Node Modules
+        id: cache-nodemodules
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-node-modules
+        with:
+          # caching node_modules
+          path: node_modules
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+
+      - name: Install Dependencies
+        if: steps.cache-nodemodules.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - name: 'Build project'
+        run: npm run build
+
   LintStyle:
     name: "Linting and Styling Checks"
     runs-on: ubuntu-latest
@@ -62,13 +91,13 @@ jobs:
         run: npm ci
 
       - name: "Run Angular lint check"
-        run: npm run lint:design-system
+        run: npm run lint:check
 
       - name: "Run Stylelint check"
-        run: npm run stylelint:design-system
+        run: npm run stylelint:check
 
       - name: "Run Compodoc coverage check"
-        run: npm run docs:coverageCheck
+        run: npm run docs:check
 
       - name: "Run Prettier check"
         run: npm run prettier:check
@@ -84,7 +113,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ["javascript"]
+        language: ["javascript", "typescript"]
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
         # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
 
