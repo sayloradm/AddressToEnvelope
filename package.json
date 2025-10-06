@@ -2,7 +2,7 @@
   "name": "address-to-envelope",
   "version": "0.0.0",
   "scripts": {
-    "prGatekeeper": "prettier --check . && compodoc -c compodocrc.json --coverageMinimumPerFile 100 -t && stylelint **/*.scss && ng lint addressToEnvelope",
+    "prGatekeeper": "ng build && prettier --check . && compodoc -c compodocrc.json --coverageMinimumPerFile 100 -t && stylelint **/*.scss && ng lint addressToEnvelope",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",

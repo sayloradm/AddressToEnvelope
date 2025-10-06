@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
 /**
  * App component
@@ -7,6 +8,7 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  imports: [BrowserModule],
 })
 export class AppComponent {
   /**
