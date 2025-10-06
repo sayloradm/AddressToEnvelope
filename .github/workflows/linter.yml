@@ -62,13 +62,13 @@ jobs:
         run: npm ci
 
       - name: "Run Angular lint check"
-        run: npm run lint:design-system
+        run: npm run lint:check
 
       - name: "Run Stylelint check"
-        run: npm run stylelint:design-system
+        run: npm run stylelint:check
 
       - name: "Run Compodoc coverage check"
-        run: npm run docs:coverageCheck
+        run: npm run docs:check
 
       - name: "Run Prettier check"
         run: npm run prettier:check
@@ -84,7 +84,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: ["javascript"]
+        language: ["javascript", "typescript"]
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
         # Learn more about CodeQL language support at https://aka.ms/codeql-docs/language-support
 
